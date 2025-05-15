@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 from docx import Document
 import re
+import os
 
 def clean_response(text):
     cleaned_text = re.sub(
