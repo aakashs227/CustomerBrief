@@ -8,6 +8,7 @@ python-dotenv
 requests
 pydantic
 typing-extensions
-tavily-python          # if you're using Tavily
-pandas                 # if file_operations.py uses CSV/Excel
-openpyxl               # optional: for reading Excel files
+tavily-python
+pandas
+openpyxl
+python-docx
