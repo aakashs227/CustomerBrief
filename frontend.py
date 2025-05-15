@@ -62,7 +62,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Load Logos ---
-logo_path = r"C:\Users\aakashs\Downloads\WORLDWIDE_Logo 7.png"
+logo_path = "WORLDWIDE_Logo_7.png"
 
 # Encode Sidebar Logo
 logo = Image.open(logo_path)
