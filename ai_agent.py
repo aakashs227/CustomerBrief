@@ -12,8 +12,9 @@ from langchain_core.messages.ai import AIMessage
 # Load environment variables
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+TAVILY_API_KEY = st.secrets["TAVILY_API_KEY"]
 
 # Custom system prompt
 DEFAULT_PROMPT = (
