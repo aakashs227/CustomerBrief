@@ -80,13 +80,23 @@ with st.sidebar:
     col_logo, col_button = st.columns([0.6, 0.4])
     with col_logo:
         st.markdown(
-            f"""
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="data:image/png;base64,{logo_base64}" width="100"/>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    f"""
+    <div style="
+        background-color: white;
+        padding: 3px 0px 3px 0px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing: border-box;
+    ">
+        <img src="data:image/png;base64,{logo_base64}" width="100" style="display: block;"/>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
 
     st.markdown("---")
     st.markdown("""
