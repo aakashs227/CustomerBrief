@@ -62,7 +62,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Load Logos ---
-logo_path = "WORLDWIDE_Logo_7.png"
+logo_path = "WORLDWIDE_Logo_7.png"  # Must match exactly, case-sensitive
+
+try:
+    if not os.path.exists(logo_path):
+        raise FileNotFoundError(f"{logo_path} not found in current directory.")
+
 
 # Encode Sidebar Logo
 logo = Image.open(logo_path)
