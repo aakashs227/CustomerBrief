@@ -62,18 +62,17 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Load Logos ---
-logo_path = "WORLDWIDE_Logo_7.png"  # Must match exactly, case-sensitive
+logo_path = "WORLDWIDE_Logo_7.png"  # Make sure the file name and case match exactly
 
 try:
     if not os.path.exists(logo_path):
         raise FileNotFoundError(f"{logo_path} not found in current directory.")
 
+    logo = Image.open(logo_path)
+    buffered = BytesIO()
+    logo.save(buffered, format="PNG")
+    logo_base64 = base64.b64encode(buffered.getvalue()).decode()
 
-# Encode Sidebar Logo
-logo = Image.open(logo_path)
-buffered = BytesIO()
-logo.save(buffered, format="PNG")
-logo_base64 = base64.b64encode(buffered.getvalue()).decode()
 
 # --- Initialize Session State ---
 for key in ["chat_history", "last_query", "download_clicked", "share_clicked", "selected_menu"]:
