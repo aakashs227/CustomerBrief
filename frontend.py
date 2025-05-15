@@ -72,6 +72,14 @@ try:
     buffered = BytesIO()
     logo.save(buffered, format="PNG")
     logo_base64 = base64.b64encode(buffered.getvalue()).decode()
+except FileNotFoundError:
+    st.error("❌ Logo image not found. Please upload it correctly.")
+    logo_base64 = ""
+
+# Now your for loop can come here, outside the try-except
+for key in ["chat_history", "last_query", "download_clicked", "share_clicked", "selected_menu"]:
+    # your for loop code here
+    pass
 
 
 # --- Initialize Session State ---
