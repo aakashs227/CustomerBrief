@@ -92,7 +92,7 @@ from docx import Document
 import re
 
 # Load API key securely from Streamlit secrets
-openai.api_key = st.secrets["api_keys"]["openai"]
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # --- Helper Functions ---
 def clean_response(text):
