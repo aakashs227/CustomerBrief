@@ -218,7 +218,7 @@ def show_download_buttons(query, response, key_prefix="main"):
         )
         
         # Show response only once
-        st.write(response)
+        
         
         # Bottom download button
         st.download_button(
