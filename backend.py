@@ -85,7 +85,3 @@ def share_endpoint(data: dict):
 
     raise HTTPException(status_code=400, detail="No data to share.")
 
-# Run app
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=9999) 
