@@ -253,11 +253,13 @@ st.markdown("""
         .stButton button {background-color: white !important; color: black !important;}
         .chat-history-item {color: yellow !important; font-size: 16px !important;}
         
-        /* Correct background for main content */
-        .appview-container .main .block-container {
-            background-color: #ffffff !important;
-            padding: 2rem;
-            border-radius: 12px;
+        /* Make only the main app background white */
+        .css-18e3th9 {
+            background-color: white !important;
+        }
+        /* Hide Streamlit menu, footer, header */
+        #MainMenu, header, footer {
+            visibility: hidden;
         }
     </style>
 """, unsafe_allow_html=True)
