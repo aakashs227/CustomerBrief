@@ -341,13 +341,16 @@ def process_with_openai(query):
                     "1. 🏢 Company Overview\n"
                     "2. 💰 Financial Summary (Revenue, Profit, Funding, etc.)\n"
                     "3. 🌍 Market & Industry Position\n"
-                    "4. 🚚 Supply Chain & Logistics Insight (esp. import/export if applicable)\n"
-                    "5. 📍 Geographical Presence\n"
+                    "3. 📦 Import Activity\n"
+                    "4. 🚢 Export Activity\n"
+                    "5. 🌍 Global Presence & Offices\n"
+                    "6. 🚛 Freight Forwarding History\n"
+                    "7. 📌 Actionable Insights\n"
                     "6. 🔍 Competitive Landscape\n"
                     "7. 📈 Recent Developments or Strategic Moves\n"
                     "8. 🧠 Actionable Insights & Recommendations\n"
                     "9. 🔗 Source Links (if available)\n\n"
-                    "Be neutral, informative, and include bullet points or subheaders for readability."
+                    "Be neutral, informative, and include bullet points or subheaders for readability. Ensure references are provided within each category itself."
                 )},
                 {"role": "user", "content": query}
             ]
