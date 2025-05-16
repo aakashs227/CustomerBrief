@@ -372,12 +372,23 @@ def process_with_openai(query):
 
 
 # --- Run on Click ---
+# --- Run on Click ---
 if search_clicked or (user_query and user_query != st.session_state.last_query):
     if user_query.strip():
-        st.session_state.last_query = user_query.strip()
-        process_with_openai(user_query.strip())
+        # Check for multiple companies
+        import re
+        query = user_query.strip()
+        company_like_keywords = re.findall(r"\b[A-Z][a-zA-Z&.\-']{2,}\b", query)
+
+        if any(sep in query for sep in [" and ", ",", " & ", " vs "]) or len(company_like_keywords) > 3:
+            st.warning("⚠️ **Important Notice:** To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
+                       "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢")
+        else:
+            st.session_state.last_query = query
+            process_with_openai(query)
     else:
         st.warning("Please enter a valid query.")
+
 
 
 # --- Reload Last Output if Exists ---
