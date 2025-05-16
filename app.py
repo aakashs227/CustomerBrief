@@ -372,15 +372,20 @@ def process_with_openai(query):
 
 
 # --- Run on Click ---
-# --- Run on Click ---
 if search_clicked or (user_query and user_query != st.session_state.last_query):
     if user_query.strip():
-        # Check for multiple companies
         import re
         query = user_query.strip()
-        company_like_keywords = re.findall(r"\b[A-Z][a-zA-Z&.\-']{2,}\b", query)
 
-        if any(sep in query for sep in [" and ", ",", " & ", " vs "]) or len(company_like_keywords) > 3:
+        # Heuristic: multiple separators or more than 2 capitalized "words"
+        multi_company_separators = [" and ", ",", " & ", " vs ", "/", " versus "]
+        has_multiple_separators = any(sep in query.lower() for sep in multi_company_separators)
+
+        # Detect capitalized words (common in company names)
+        company_like_keywords = re.findall(r"\b[A-Z][a-zA-Z&.\-']{2,}\b", query)
+        likely_multiple_companies = len(company_like_keywords) > 2
+
+        if has_multiple_separators or likely_multiple_companies:
             st.warning("⚠️ **Important Notice:** To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
                        "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢")
         else:
@@ -388,6 +393,7 @@ if search_clicked or (user_query and user_query != st.session_state.last_query):
             process_with_openai(query)
     else:
         st.warning("Please enter a valid query.")
+
 
 
 
