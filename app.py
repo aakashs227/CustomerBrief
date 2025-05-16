@@ -207,7 +207,7 @@ def show_download_buttons(query, response, key_prefix="main"):
         if not hasattr(st.session_state, 'multiple_companies_warned'):
             st.warning("⚠️ To ensure clarity, please analyze one company at a time.")
             st.session_state.multiple_companies_warned = True
-        st.write(response)
+        
     else:
         file_name = f"{slugify(query)}.docx"
         docx_file = generate_docx(query, response)
@@ -218,7 +218,7 @@ def show_download_buttons(query, response, key_prefix="main"):
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download"
         )
-        st.write(response)
+        
 
 # --- Streamlit Config ---
 st.set_page_config(
