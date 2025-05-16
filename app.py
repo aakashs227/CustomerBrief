@@ -113,7 +113,8 @@ with st.sidebar:
                 if st.button("👁 View", key=f"view_{i}", help="View"):
                     st.session_state.last_query = q
                     st.session_state.selected_menu = None
-                    st.experimental_rerun()
+
+            
             with button_cols[1]:
                 doc_buffer = BytesIO()
                 doc = Document()
@@ -135,7 +136,7 @@ with st.sidebar:
                 if st.button("🗑 Delete", key=f"delete_{i}", help="Delete"):
                     st.session_state.chat_history.pop(index)
                     st.session_state.selected_menu = None
-                    st.experimental_rerun()
+                    
 
 # --- Main UI ---
 st.markdown("""
