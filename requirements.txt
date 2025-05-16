@@ -1,28 +1,28 @@
+# UI
 streamlit
+
+# LLMs and Agent Framework
 openai
-httpx
-fastapi
-uvicorn
-langchain
-python-dotenv
-requests
-pydantic
-typing-extensions
-tavily-python
-pandas
-openpyxl
-python-docx
-streamlit
-python-dotenv
-langchain
-langchain-openai
-langchain-community
-openai
-streamlit
-python-dotenv
 langchain
 langchain-openai
 langchain-community
 langgraph
-openai
-tavily-search
+
+# Search Integration
+tavily-python  # For Tavily search API
+
+# Environment Variables
+python-dotenv
+
+# Data & File Handling
+pandas
+openpyxl        # For Excel file handling
+python-docx     # For Word document generation
+
+# HTTP Requests
+requests
+httpx
+
+# Utilities
+pydantic
+typing-extensions
