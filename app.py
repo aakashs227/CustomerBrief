@@ -327,7 +327,7 @@ user_query = st.text_input(
 )
 search_clicked = st.button("🔍 Search")
 
-# --- Handle Query ---
+
 # --- Handle Query with Detailed Business Overview ---
 def process_with_openai(query):
     with st.spinner("🔍 Analyzing the business..."):
