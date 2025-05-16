@@ -23,7 +23,7 @@ DEFAULT_PROMPT = (
     "6. 🚛 Freight Forwarding History\n"
     "7. 📌 Actionable Insights\n"
     "8. 🔗 List of References (with clickable links)\n\n"
-    "In detail business overview ,Be clear, concise, and use bullet points or headings for readability. Ensure references are provided within each category itself."
+    "i want in detail business overview ,Be clear, and use bullet points or headings for readability. Ensure references are provided within each category itself."
 )
 
 def clean_ai_response(response_text: str) -> str:
