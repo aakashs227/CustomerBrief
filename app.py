@@ -168,15 +168,15 @@ import re
 import streamlit as st
 
 st.set_page_config(
-    page_title="Selective Menu Example",
+    page_title="My App",
     menu_items={
         "Get Help": None,
-        "Report a bug": None,
-        "About": "This app was made by Me"
+        "Report a bug": "https://github.com/streamlit/streamlit/issues",
+        "About": None,
     }
 )
 
-st.write("Hello! Only 'About' menu is shown.")
+st.title("Hello world")
 
 
 
@@ -257,7 +257,7 @@ def show_download_buttons(query, response, key_prefix="main"):
 
 # --- Streamlit Config ---
 st.set_page_config(
-    page_title="CustomerBrief |",
+    page_title="CustomerBrief",
     layout="wide",
     initial_sidebar_state="expanded"
 )
