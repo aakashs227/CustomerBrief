@@ -68,7 +68,7 @@ def get_response_from_ai_agent(llm_id, query, allow_search=False):
     agent = create_react_agent(
         model=llm,
         tools=[],  # No external tools
-        state_modifier=DEFAULT_PROMPT
+        state_modifier= DEFAULT_PROMPT
     )
 
     state = {"messages": query}
@@ -197,27 +197,7 @@ def contains_multiple_companies(query):
     count = sum([query.lower().count(d) for d in delimiters])
     return count >= 1
 
-def show_download_buttons(query, response, key_prefix="main"):
-    st.markdown("### 🧠 Company Analysis")
-    if contains_multiple_companies(query):
-        if not hasattr(st.session_state, 'multiple_companies_warned'):
-            if not hasattr(st.session_state, 'multiple_companies_warned'):
-                st.warning("⚠️ To ensure clarity, please analyze one company at a time.")
-                st.session_state.multiple_companies_warned = True
-            st.write(response)
-        
-    else:
-        file_name = f"{slugify(query)}.docx"
-        docx_file = generate_docx(query, response)
-        
-        # Top download button
-        st.download_button(
-            label="📥 Download Analysis",
-            data=docx_file,
-            file_name=file_name,
-            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            key=f"{key_prefix}_download_top"
-        )
+
         
  # Show response only once
 def show_download_buttons(query, response, key_prefix="main"):
@@ -349,10 +329,10 @@ search_clicked = st.button("🔍 Search")
 
 # --- Handle Query ---
 def process_with_openai(query):
-    with st.spinner("Thinking..."):
+    with st.spinner("Searching..."):
         try:
             messages = [
-                {"role": "system", "content": "You are MIRA, an expert market analyst. Provide clear, concise, and detailed company and industry analysis."},
+                {"role": "system", "content": "You are CustomerBrief, an expert market analyst. Provide clear, concise, and detailed company and industry analysis."},
                 {"role": "user", "content": query}
             ]
             response = client.chat.completions.create(
