@@ -379,11 +379,17 @@ if search_clicked or (user_query and user_query != st.session_state.last_query):
     else:
         st.warning("Please enter a valid query.")
 
+
 # --- Reload Last Output if Exists ---
-if st.session_state.last_query and not search_clicked:
+if (
+    st.session_state.last_query
+    and not search_clicked
+    and st.session_state.last_query not in [q for q, _ in st.session_state.chat_history[-1:]]
+):
     # Only show saved last query result if NOT a fresh search submission
     for idx, (q, a) in enumerate(reversed(st.session_state.chat_history)):
         if q == st.session_state.last_query:
             st.markdown(f"### **User Query:** {q}")
             show_download_buttons(q, a, key_prefix=f"history_{idx}_{slugify(q)[:30]}")
+
 
