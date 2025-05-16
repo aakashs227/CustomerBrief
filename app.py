@@ -219,26 +219,24 @@ def show_download_buttons(query, response, key_prefix="main"):
             key=f"{key_prefix}_download_top"
         )
         
-        # Show response only once
- def show_download_buttons(query, response, key_prefix="main"):
-     st.markdown("### 🧠 Company Analysis")
-    
-     if contains_multiple_companies(query):
-        # Display the warning only once, not repeatedly
+ # Show response only once
+def show_download_buttons(query, response, key_prefix="main"):
+    st.markdown("### 🧠 Company Analysis")
+
+    if contains_multiple_companies(query):
+        # Show the warning only once
         if not hasattr(st.session_state, 'multiple_companies_warned'):
             st.warning(
                 "⚠️ Important Notice: To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
                 "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢"
             )
-            st.session_state.multiple_companies_warned = True  # Set flag to indicate warning has been shown
-        
+            st.session_state.multiple_companies_warned = True
         st.write(response)
-
 
     else:
         file_name = f"{slugify(query)}.docx"
         docx_file = generate_docx(query, response)
-        
+
         # Top download button
         st.download_button(
             label="📥 Download Analysis",
@@ -247,10 +245,10 @@ def show_download_buttons(query, response, key_prefix="main"):
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download_top"
         )
-        
-        # Show response only once
+
+        # Show response
         st.write(response)
-        
+
         # Bottom download button
         st.download_button(
             label="📥 Download Analysis",
@@ -259,18 +257,6 @@ def show_download_buttons(query, response, key_prefix="main"):
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download_bottom"
         )
-
-        
-        
-        # Bottom download button
-        st.download_button(
-            label="📥 Download Analysis",
-            data=docx_file,
-            file_name=file_name,
-            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            key=f"{key_prefix}_download_bottom"
-        )
-
 
 # --- Streamlit Config ---
 st.set_page_config(
