@@ -62,20 +62,24 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Load Logos ---
-logo_path = "WORLDWIDE_Logo_7.png"  # Make sure the file name and case match exactly
+
+# --- Load Logos from GitHub URL ---
+logo_url = "https://raw.githubusercontent.com/aakashs227/CustomerBrief/main/WORLDWIDE_Logo%207.png"  # Your GitHub image URL
 
 try:
-    if not os.path.exists(logo_path):
-        raise FileNotFoundError(f"{logo_path} not found in current directory.")
+    response = requests.get(logo_url)
+    if response.status_code != 200:
+        raise FileNotFoundError("Logo image could not be loaded from GitHub.")
 
-    logo = Image.open(logo_path)
+    logo = Image.open(BytesIO(response.content))
     buffered = BytesIO()
     logo.save(buffered, format="PNG")
     logo_base64 = base64.b64encode(buffered.getvalue()).decode()
-except FileNotFoundError:
-    st.error("❌ Logo image not found. Please upload it correctly.")
+except Exception as e:
+    st.error(f"❌ Error loading logo image: {e}")
     logo_base64 = ""
+
+  
 
 # Now your for loop can come here, outside the try-except
 for key in ["chat_history", "last_query", "download_clicked", "share_clicked", "selected_menu"]:
