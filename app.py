@@ -206,23 +206,29 @@ def show_download_buttons(query, response, key_prefix="main"):
         st.write(response)
     else:
         file_name = f"{slugify(query)}.docx"
-        docx_file_top = generate_docx(query, response)
+        docx_file = generate_docx(query, response)
+        
+        # Top download button
         st.download_button(
             label="📥 Download Analysis",
-            data=docx_file_top,
+            data=docx_file,
             file_name=file_name,
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download_top"
         )
+        
+        # Show response only once
         st.write(response)
-        docx_file_bottom = generate_docx(query, response)
+        
+        # Bottom download button
         st.download_button(
             label="📥 Download Analysis",
-            data=docx_file_bottom,
+            data=docx_file,
             file_name=file_name,
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download_bottom"
         )
+
 
 # --- Streamlit Config ---
 st.set_page_config(
