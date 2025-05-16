@@ -5,10 +5,10 @@ from PIL import Image
 from io import BytesIO
 from docx import Document
 import re
-import openai
+from openai import OpenAI
 
-# --- Setup OpenAI API Key ---
-openai.api_key = st.secrets.get("OPENAI_API_KEY", "")  # Ensure your key is in Streamlit secrets
+# --- Setup OpenAI Client ---
+client = OpenAI(api_key=st.secrets.get("OPENAI_API_KEY", ""))
 
 # --- Custom Styling ---
 st.markdown("""
@@ -114,7 +114,6 @@ with st.sidebar:
                     st.session_state.last_query = q
                     st.session_state.selected_menu = None
 
-            
             with button_cols[1]:
                 doc_buffer = BytesIO()
                 doc = Document()
@@ -176,13 +175,13 @@ def contains_multiple_companies(query):
 
 def call_openai_api(prompt):
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
+        response = client.chat.completions.create(
+            model="gpt-4o",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.5,
             max_tokens=1200,
         )
-        return response['choices'][0]['message']['content'].strip()
+        return response.choices[0].message.content.strip()
     except Exception as e:
         return f"❌ OpenAI API error: {e}"
 
@@ -237,4 +236,3 @@ if st.session_state.chat_history:
     last_q, last_a = st.session_state.chat_history[-1]
     st.markdown(f"## Analysis for: **{last_q}**")
     show_download_buttons(last_q, last_a, key_prefix="current")
- 
