@@ -278,7 +278,7 @@ with st.sidebar:
     with col_logo:
         st.markdown(
             f"""
-            <div style="background-color: white; padding: 3px; width: 100%;">
+            <div style="background-color: white; padding: 3px; display: inline-block; border-radius: 8px;">
                 <img src="data:image/png;base64,{logo_base64}" width="100"/>
             </div>
             """, unsafe_allow_html=True
