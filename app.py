@@ -183,7 +183,7 @@ def slugify(text):
 
 def generate_docx(query, response):
     doc = Document()
-    doc.add_heading("MIRA Company Analysis", level=1)
+    doc.add_heading("CustomerBrief", level=1)
     doc.add_paragraph(f"Query: {query}")
     doc.add_paragraph("Response:")
     doc.add_paragraph(response)
@@ -211,7 +211,7 @@ def show_download_buttons(query, response, key_prefix="main"):
                 "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢"
             )
             st.session_state.multiple_companies_warned = True
-        st.write(response)
+        
 
     else:
         file_name = f"{slugify(query)}.docx"
