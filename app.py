@@ -164,6 +164,15 @@ from io import BytesIO
 from docx import Document
 import re
 
+import streamlit as st
+
+st.set_page_config(
+    page_title="My App",
+    menu_items={
+        "Get Help": None,
+        "About": None,
+    }
+)
 
 
 
