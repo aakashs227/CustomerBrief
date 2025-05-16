@@ -201,8 +201,9 @@ def show_download_buttons(query, response, key_prefix="main"):
     st.markdown("### 🧠 Company Analysis")
     if contains_multiple_companies(query):
         if not hasattr(st.session_state, 'multiple_companies_warned'):
-            st.warning("⚠️ To ensure clarity, please analyze one company at a time.")
-            st.session_state.multiple_companies_warned = True
+            if not hasattr(st.session_state, 'multiple_companies_warned'):
+                st.warning("⚠️ To ensure clarity, please analyze one company at a time.")
+                st.session_state.multiple_companies_warned = True
             st.write(response)
         
     else:
