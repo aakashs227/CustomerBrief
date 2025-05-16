@@ -220,9 +220,9 @@ def show_download_buttons(query, response, key_prefix="main"):
         
         # Show response only once
  def show_download_buttons(query, response, key_prefix="main"):
-    st.markdown("### 🧠 Company Analysis")
+     st.markdown("### 🧠 Company Analysis")
     
-    if contains_multiple_companies(query):
+     if contains_multiple_companies(query):
         # Display the warning only once, not repeatedly
         if not hasattr(st.session_state, 'multiple_companies_warned'):
             st.warning(
