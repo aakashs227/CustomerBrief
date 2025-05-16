@@ -279,7 +279,7 @@ with st.sidebar:
         st.markdown(
             f"""
             <div style="background-color: white; padding: 3px; display: inline-block; border-radius: 8px;">
-                <img src="data:image/png;base64,{logo_base64}" width="150"/>
+                <img src="data:image/png;base64,{logo_base64}" width="120"/>
             </div>
             """, unsafe_allow_html=True
         )
