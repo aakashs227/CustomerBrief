@@ -219,13 +219,19 @@ def show_download_buttons(query, response, key_prefix="main"):
         )
         
         # Show response only once
-        def show_download_buttons(query, response, key_prefix="main"):
-             st.markdown("### 🧠 Company Analysis")
-             if contains_multiple_companies(query):
+ def show_download_buttons(query, response, key_prefix="main"):
+    st.markdown("### 🧠 Company Analysis")
+    
+    if contains_multiple_companies(query):
+        # Display the warning only once, not repeatedly
         if not hasattr(st.session_state, 'multiple_companies_warned'):
-            st.warning("⚠️ To ensure clarity, please analyze one company at a time.")
-            st.session_state.multiple_companies_warned = True
+            st.warning(
+                "⚠️ Important Notice: To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
+                "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢"
+            )
+            st.session_state.multiple_companies_warned = True  # Set flag to indicate warning has been shown
         st.write(response)
+
     else:
         file_name = f"{slugify(query)}.docx"
         docx_file = generate_docx(query, response)
