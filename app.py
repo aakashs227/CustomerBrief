@@ -315,7 +315,7 @@ def process_with_openai(query):
                 {"role": "user", "content": query}
             ]
             response = client.chat.completions.create(
-                model="gpt-4",
+                model="gpt-4.1-2025-04-14",
                 messages=messages,
                 temperature=0.4
             )
