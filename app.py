@@ -218,7 +218,6 @@ def show_download_buttons(query, response, key_prefix="main"):
             file_name=file_name,
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download"
-            st.write(response)
         )
         
 
