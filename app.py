@@ -5,9 +5,10 @@ from PIL import Image
 from io import BytesIO
 from docx import Document
 import re
+from openai import OpenAI
 
-# Import your ai_agent logic (adjust import if ai_agent.py is in a different folder)
-from ai_agent import run_agent
+# --- Setup OpenAI Client ---
+client = OpenAI(api_key=st.secrets.get("OPENAI_API_KEY", ""))
 
 # --- Custom Styling ---
 st.markdown("""
@@ -134,6 +135,7 @@ with st.sidebar:
                 if st.button("🗑 Delete", key=f"delete_{i}", help="Delete"):
                     st.session_state.chat_history.pop(index)
                     st.session_state.selected_menu = None
+                    
 
 # --- Main UI ---
 st.markdown("""
@@ -170,6 +172,18 @@ def contains_multiple_companies(query):
     delimiters = [",", "&", " and ", "/", " vs ", " versus ", ";"]
     count = sum([query.lower().count(d) for d in delimiters])
     return count >= 1
+
+def call_openai_api(prompt):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.5,
+            max_tokens=1200,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        return f"❌ OpenAI API error: {e}"
 
 def show_download_buttons(query, response, key_prefix="main"):
     st.markdown("### 🧠 Company Analysis")
@@ -212,12 +226,7 @@ if st.button("Search"):
             )
         else:
             with st.spinner("Generating analysis..."):
-                # Use your ai_agent.py logic here instead of direct OpenAI call
-                try:
-                    answer = run_agent(query)  # Your custom AI agent function
-                except Exception as e:
-                    answer = f"❌ Error running AI agent: {e}"
-
+                answer = call_openai_api(query)
                 st.session_state.chat_history.append((query, answer))
                 st.session_state.last_query = query
                 st.experimental_rerun()
