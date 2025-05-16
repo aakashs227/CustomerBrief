@@ -72,10 +72,8 @@ def get_response_from_ai_agent(llm_id, query, allow_search=False):
         state_modifier=DEFAULT_PROMPT
     )
 
-    from langchain_core.messages import HumanMessage
-
-    state = {"messages": [HumanMessage(content=query)]}
-
+    
+    state = {"messages": query}
     response = agent.invoke(state)
 
     messages = response.get("messages")
