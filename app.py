@@ -91,8 +91,9 @@ from io import BytesIO
 from docx import Document
 import re
 
-# Load API key securely from Streamlit secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# === Setup OpenAI client using new SDK style ===
+from openai import OpenAI
+client = OpenAI(api_key=st.secrets["api_keys"]["openai"])
 
 # --- Helper Functions ---
 def clean_response(text):
@@ -239,7 +240,7 @@ def process_with_openai(query):
                 {"role": "system", "content": "You are MIRA, an expert market analyst. Provide clear, concise, and detailed company and industry analysis."},
                 {"role": "user", "content": query}
             ]
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-4",
                 messages=messages,
                 temperature=0.4
