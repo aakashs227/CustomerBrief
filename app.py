@@ -167,6 +167,17 @@ import re
 
 import streamlit as st
 
+st.set_page_config(
+    page_title="My App",
+    page_icon="🔥",
+    layout="wide",
+)
+
+# Now other Streamlit calls
+st.title("Welcome to the app")
+# ...
+
+
 # Define your owner password (store it safely in st.secrets in real app)
 OWNER_PASSWORD = st.secrets.get("OWNER_PASSWORD", "admin123")  # default fallback
 
