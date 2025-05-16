@@ -1,4 +1,3 @@
-
 # ai_agent.py
 
 import os
@@ -72,7 +71,6 @@ def get_response_from_ai_agent(llm_id, query, allow_search=False):
         state_modifier=DEFAULT_PROMPT
     )
 
-    
     state = {"messages": query}
     response = agent.invoke(state)
 
@@ -205,8 +203,7 @@ def show_download_buttons(query, response, key_prefix="main"):
         if not hasattr(st.session_state, 'multiple_companies_warned'):
             st.warning("⚠️ To ensure clarity, please analyze one company at a time.")
             st.session_state.multiple_companies_warned = True
-            st.write(response)
-        
+        st.write(response)
     else:
         file_name = f"{slugify(query)}.docx"
         docx_file = generate_docx(query, response)
@@ -217,7 +214,7 @@ def show_download_buttons(query, response, key_prefix="main"):
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             key=f"{key_prefix}_download"
         )
-        
+        st.write(response)
 
 # --- Streamlit Config ---
 st.set_page_config(
@@ -317,7 +314,7 @@ def process_with_openai(query):
                 {"role": "user", "content": query}
             ]
             response = client.chat.completions.create(
-                model="gpt-4.1-2025-04-14",
+                model="gpt-4",
                 messages=messages,
                 temperature=0.4
             )
@@ -342,6 +339,3 @@ if st.session_state.last_query:
         if q == st.session_state.last_query:
             st.markdown(f"### **User Query:** {q}")
             show_download_buttons(q, a, key_prefix=f"history_{idx}_{slugify(q)[:30]}")
-
-
-    
