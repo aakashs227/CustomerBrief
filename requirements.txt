@@ -12,3 +12,10 @@ tavily-python
 pandas
 openpyxl
 python-docx
+streamlit
+python-dotenv
+langchain
+langchain-openai
+langchain-community
+openai
+
