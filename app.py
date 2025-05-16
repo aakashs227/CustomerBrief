@@ -93,7 +93,7 @@ import re
 
 # === Setup OpenAI client using new SDK style ===
 from openai import OpenAI
-client = OpenAI(api_key=st.secrets["api_keys"]["openai"])
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # --- Helper Functions ---
 def clean_response(text):
