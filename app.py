@@ -332,31 +332,32 @@ search_clicked = st.button("🔍 Search")
 def process_with_openai(query):
     with st.spinner("🔍 Analyzing the business..."):
         try:
-            # Customize the system prompt for structured business analysis
+            # System prompt designed for up-to-date, detailed company analysis
             messages = [
                 {"role": "system", "content": (
                     "You are CustomerBrief, an expert market analyst. "
-                    "Provide clear, Detailed, structured, and insightful analysis of any company or business. "
-                    "Your output should include:\n\n"
+                    "Provide a clear, structured, and insightful business analysis of any company using the most recent and relevant data available.\n\n"
+                    "Your response must include:\n\n"
                     "1. 🏢 Company Overview\n"
-                    "2. 💰 Financial Summary (Revenue, Profit, Funding, etc.)\n"
+                    "2. 💰 Financial Summary (revenue, profit, funding, etc.)\n"
                     "3. 🌍 Market & Industry Position\n"
                     "4. 📦 Import Activity\n"
                     "5. 🚢 Export Activity\n"
-                    "6. 🌍 Global Presence & Offices\n"
+                    "6. 🌍 Global Presence & Office Locations\n"
                     "7. 🚛 Freight Forwarding History\n"
-                    "8. 📌 Actionable Insights\n"
-                    "9. 🔍 Competitive Landscape\n"
-                    "10. 📈 Recent Developments or Strategic Moves\n"
-                    "11. 🧠 Actionable Insights & Recommendations\n"
-                    "12. 🔗 Source Links (if available)\n\n"
-                    "Be neutral, informative, and include bullet points or subheaders for readability. Ensure references are provided within each category itself."
+                    "8. 🔍 Competitive Landscape\n"
+                    "9. 📈 Recent Developments or Strategic Moves\n"
+                    "10. 🧠 Actionable Insights & Recommendations\n"
+                    "11. 🔗 Source Links (insert relevant links within each section if available)\n\n"
+                    "Be factual, neutral, and use bullet points or sub-sections for clarity. "
+                    "Use the most current information and trends available at the time of analysis. "
+                    "If some data is estimated or not publicly available, clearly mention that."
                 )},
                 {"role": "user", "content": query}
             ]
 
             response = client.chat.completions.create(
-                model="gpt-4.1-2025-04-14",
+                model="gpt-4.1-2025-04-14",  # Use whichever model your system prefers
                 messages=messages,
                 temperature=0.4
             )
@@ -369,6 +370,8 @@ def process_with_openai(query):
 
         except Exception as e:
             st.error(f"❌ OpenAI API Error: {e}")
+
+
 
 
 # --- Run on Click ---
