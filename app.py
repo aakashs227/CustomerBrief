@@ -230,7 +230,9 @@ def show_download_buttons(query, response, key_prefix="main"):
                 "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢"
             )
             st.session_state.multiple_companies_warned = True  # Set flag to indicate warning has been shown
+        
         st.write(response)
+
 
     else:
         file_name = f"{slugify(query)}.docx"
