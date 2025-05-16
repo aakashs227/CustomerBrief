@@ -168,58 +168,15 @@ import re
 import streamlit as st
 
 st.set_page_config(
-    page_title="My App",
-    page_icon="🔥",
-    layout="wide",
+    page_title="Selective Menu Example",
+    menu_items={
+        "Get Help": None,
+        "Report a bug": None,
+        "About": "This app was made by Me"
+    }
 )
 
-# Now other Streamlit calls
-st.title("Welcome to the app")
-# ...
-
-
-# Define your owner password (store it safely in st.secrets in real app)
-OWNER_PASSWORD = st.secrets.get("OWNER_PASSWORD", "admin123")  # default fallback
-
-# Login state
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-
-def login():
-    """Show a password input and check if it matches the owner password."""
-    password = st.text_input("Enter admin password:", type="password")
-    if st.button("Login"):
-        if password == OWNER_PASSWORD:
-            st.session_state.logged_in = True
-            st.success("Logged in as admin!")
-        else:
-            st.error("Incorrect password!")
-
-def admin_panel():
-    """Owner-only UI here"""
-    st.title("🔐 Admin Panel")
-    st.write("Welcome, Owner! You can manage your app here.")
-    # Add your admin controls here
-    if st.button("Do admin task"):
-        st.write("Admin task performed!")
-
-def main_app():
-    """Regular user UI"""
-    st.title("Welcome to the main app")
-    st.write("This is what regular users see.")
-
-# Main app logic
-if st.session_state.logged_in:
-    admin_panel()
-else:
-    main_app()
-    st.sidebar.title("Owner Login")
-    login()
-
-
-
-
-
+st.write("Hello! Only 'About' menu is shown.")
 
 
 
