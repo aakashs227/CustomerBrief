@@ -249,12 +249,19 @@ st.set_page_config(
 st.markdown("""
     <style>
         #MainMenu, header, footer {visibility: hidden;}
-        body { background-color: #f4f4f4 !important; }
         section[data-testid="stSidebar"] {background-color: #002b5c;}
         .stButton button {background-color: white !important; color: black !important;}
         .chat-history-item {color: yellow !important; font-size: 16px !important;}
+        
+        /* Correct background for main content */
+        .appview-container .main .block-container {
+            background-color: #ffffff !important;
+            padding: 2rem;
+            border-radius: 12px;
+        }
     </style>
 """, unsafe_allow_html=True)
+
 
 # --- Logo Setup ---
 logo_url = "https://raw.githubusercontent.com/aakashs227/CustomerBrief/main/WORLDWIDE_Logo%207.png"
