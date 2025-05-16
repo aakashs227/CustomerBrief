@@ -240,7 +240,7 @@ def show_download_buttons(query, response, key_prefix="main"):
 
 # --- Streamlit Config ---
 st.set_page_config(
-    page_title="CustomerBrief | MIRA AI",
+    page_title="CustomerBrief |",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -316,7 +316,7 @@ st.markdown("""
     <div style='background-color: #f4f4f4; padding: 25px; border-radius: 10px; margin-bottom: 30px;'>
         <h1 style='color: #333; margin: 0;'>Welcome to CustomerBrief</h1>
         <p style='font-size: 16px; color: #444; margin-top: 10px;'>
-            MIRA delivers AI-powered insights for sharper sales conversations.
+            AI-powered insights for sharper sales conversations.
         </p>
     </div>
 """, unsafe_allow_html=True)
@@ -328,24 +328,45 @@ user_query = st.text_input(
 search_clicked = st.button("🔍 Search")
 
 # --- Handle Query ---
+# --- Handle Query with Detailed Business Overview ---
 def process_with_openai(query):
-    with st.spinner("Searching..."):
+    with st.spinner("🔍 Analyzing the business..."):
         try:
+            # Customize the system prompt for structured business analysis
             messages = [
-                {"role": "system", "content": "You are CustomerBrief, an expert market analyst. Provide clear, concise, and detailed company and industry analysis."},
+                {"role": "system", "content": (
+                    "You are CustomerBrief, an expert market analyst. "
+                    "Provide clear, Detailed, structured, and insightful analysis of any company or business. "
+                    "Your output should include:\n\n"
+                    "1. 🏢 Company Overview\n"
+                    "2. 💰 Financial Summary (Revenue, Profit, Funding, etc.)\n"
+                    "3. 🌍 Market & Industry Position\n"
+                    "4. 🚚 Supply Chain & Logistics Insight (esp. import/export if applicable)\n"
+                    "5. 📍 Geographical Presence\n"
+                    "6. 🔍 Competitive Landscape\n"
+                    "7. 📈 Recent Developments or Strategic Moves\n"
+                    "8. 🧠 Actionable Insights & Recommendations\n"
+                    "9. 🔗 Source Links (if available)\n\n"
+                    "Be neutral, informative, and include bullet points or subheaders for readability."
+                )},
                 {"role": "user", "content": query}
             ]
+
             response = client.chat.completions.create(
                 model="gpt-4.1-2025-04-14",
                 messages=messages,
                 temperature=0.4
             )
+
             result = response.choices[0].message.content.strip()
+
             st.success("✅ Analysis Complete")
             show_download_buttons(query, result)
             st.session_state.chat_history.append((query, result))
+
         except Exception as e:
             st.error(f"❌ OpenAI API Error: {e}")
+
 
 # --- Run on Click ---
 if search_clicked or (user_query and user_query != st.session_state.last_query):
