@@ -133,13 +133,11 @@ def contains_multiple_companies(query):
 def show_download_buttons(query, response, key_prefix="main"):
     st.markdown("### 🧠 Company Analysis")
 
-    #if contains_multiple_companies(query):
-        # Show the warning only once
-        #if not hasattr(st.session_state, 'multiple_companies_warned'):
-           # st.warning(
-              #  "⚠️ Important Notice: To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
-              #  "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢"
-          #  )
+    # if contains_multiple_companies(query):
+#     st.warning(
+#         "⚠️ Please ask about one company at a time for detailed insights."
+#     )
+
             st.session_state.multiple_companies_warned = True
         
 
