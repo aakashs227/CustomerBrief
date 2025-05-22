@@ -133,11 +133,6 @@ def contains_multiple_companies(query):
 def show_download_buttons(query, response, key_prefix="main"):
     st.markdown("### 🧠 Company Analysis")
 
-    # if contains_multiple_companies(query):
-#     st.warning(
-#         "⚠️ Please ask about one company at a time for detailed insights."
-#     )
-
         file_name = f"{slugify(query)}.docx"
         docx_file = generate_docx(query, response)
 
