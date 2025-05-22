@@ -398,7 +398,7 @@ if search_clicked or (user_query and user_query != st.session_state.last_query):
 
         # Detect capitalized words (common in company names)
         company_like_keywords = re.findall(r"\b[A-Z][a-zA-Z&.\-']{2,}\b", query)
-        likely_multiple_companies = len(company_like_keywords) > 2
+        likely_multiple_companies = len(company_like_keywords) > 5
 
         if has_multiple_separators or likely_multiple_companies:
             st.warning("⚠️ **Important Notice:** To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
