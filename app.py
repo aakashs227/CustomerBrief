@@ -392,8 +392,8 @@ if search_clicked or (user_query and user_query != st.session_state.last_query):
         import re
         query = user_query.strip()
 
-        # Heuristic: multiple separators or more than 2 capitalized "words"
-        multi_company_separators = [" and "," & ", ",", " vs ", "/", " versus "]
+        # Heuristic: multiple separators or more than 5 capitalized "words"
+        multi_company_separators = [" and ", ",", " vs ", "/", " versus "]
         has_multiple_separators = any(sep in query.lower() for sep in multi_company_separators)
 
         # Detect capitalized words (common in company names)
