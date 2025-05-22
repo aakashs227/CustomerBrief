@@ -133,29 +133,29 @@ def contains_multiple_companies(query):
 def show_download_buttons(query, response, key_prefix="main"):
     st.markdown("### 🧠 Company Analysis")
 
-        file_name = f"{slugify(query)}.docx"
-        docx_file = generate_docx(query, response)
+    file_name = f"{slugify(query)}.docx"
+    docx_file = generate_docx(query, response)
 
-        # Top download button
-        st.download_button(
-            label="📥 Download Analysis",
-            data=docx_file,
-            file_name=file_name,
-            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            key=f"{key_prefix}_download_top"
-        )
+    # Top download button
+    st.download_button(
+        label="📥 Download Analysis",
+        data=docx_file,
+        file_name=file_name,
+        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        key=f"{key_prefix}_download_top"
+    )
 
-        # Show response
-        st.write(response)
+    # Show response
+    st.write(response)
 
-        # Bottom download button
-        st.download_button(
-            label="📥 Download Analysis",
-            data=docx_file,
-            file_name=file_name,
-            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            key=f"{key_prefix}_download_bottom"
-        )
+    # Bottom download button
+    st.download_button(
+        label="📥 Download Analysis",
+        data=docx_file,
+        file_name=file_name,
+        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        key=f"{key_prefix}_download_bottom"
+    )
 
 # --- Streamlit Config ---
 st.set_page_config(
