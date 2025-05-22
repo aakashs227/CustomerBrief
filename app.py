@@ -138,7 +138,7 @@ def show_download_buttons(query, response, key_prefix="main"):
 #         "⚠️ Please ask about one company at a time for detailed insights."
 #     )
 
-            st.session_state.multiple_companies_warned = True
+    st.session_state.multiple_companies_warned = True
         
 
     else:
