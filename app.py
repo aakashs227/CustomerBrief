@@ -78,11 +78,83 @@ def get_response_from_ai_agent(llm_id, query, allow_search=False):
     ai_messages = [msg.content for msg in messages if isinstance(msg, AIMessage)]
     return ai_messages[-1] if ai_messages else "No response generated."
 
+# File_operations.py
+
+
+from io import BytesIO
+from docx import Document
+import uuid
+
+def generate_docx_file(content: str) -> BytesIO:
+    """
+    Converts a string (company insights) into a .docx file and returns a BytesIO object.
+    """
+    doc = Document()
+    doc.add_heading('Company Insights', 0)
+    
+    for line in content.split("\n"):
+        doc.add_paragraph(line)
+
+    buffer = BytesIO()
+    doc.save(buffer)
+    buffer.seek(0)
+    return buffer
+
+def generate_share_link(data: str) -> str:
+    """
+    Mocks generating a shareable link. Replace this with actual logic if needed.
+    """
+    unique_id = uuid.uuid4().hex
+    # In real case, you'd store data in a database or pastebin-like service
+    return f"https://mocksharelink.com/report/{unique_id}"
+
+
+# Company_utils.py
+
+
+
+import re
+
+try:
+    import spacy
+    nlp = spacy.load("en_core_web_sm")
+    USE_SPACY = True
+except ImportError:
+    USE_SPACY = False
+
+company_suffixes = [
+    'Inc', 'Ltd', 'LLC', 'PLC', 'GmbH', 'Industries', 'AG', 'Corp',
+    'Corporation', 'Co', 'Pvt', 'Limited', 'Group', 'S.A.', 'S.A.S.', 'S.L.', 'S.L.U.'
+]
+
+# Suffix-based pattern (case insensitive)
+suffix_pattern = r'\b([A-Za-z][\w&.\'-]*(?:\s+[A-Za-z][\w&.\'-]*)*\s+(?:' + '|'.join(company_suffixes) + r'))\b'
+
+# Capitalized phrase pattern (case insensitive)
+capitalized_pattern = r'\b(?:[A-Za-z][a-zA-Z&.\'-]+(?:\s+[A-Za-z][a-zA-Z&.\'-]+){0,3})\b'
+
+def extract_companies(text: str):
+    companies = set()
+
+    # 1. From suffix-based regex (case insensitive)
+    suffix_matches = re.findall(suffix_pattern, text)
+    companies.update([m.strip() for m in suffix_matches if m.strip()])
+
+    # 2. From capitalized word phrases (case insensitive)
+    capitalized_matches = re.findall(capitalized_pattern, text)
+    companies.update([m.strip() for m in capitalized_matches if m.strip()])
+
+    # 3. From spaCy NER if available
+    if USE_SPACY:
+        doc = nlp(text)
+        ner_matches = [ent.text.strip() for ent in doc.ents if ent.label_ == "ORG"]
+        companies.update(ner_matches)
+
+    return list(companies)  # Will keep case-sensitive company names intact
+
 
 
 # frontend.py
-
-
 import streamlit as st
 import openai
 import base64
@@ -133,29 +205,40 @@ def contains_multiple_companies(query):
 def show_download_buttons(query, response, key_prefix="main"):
     st.markdown("### 🧠 Company Analysis")
 
-    file_name = f"{slugify(query)}.docx"
-    docx_file = generate_docx(query, response)
+    if contains_multiple_companies(query):
+        # Show the warning only once
+        if not hasattr(st.session_state, 'multiple_companies_warned'):
+            st.warning(
+                "⚠️ Important Notice: To ensure clarity and depth in analysis, our AI system is designed to evaluate one company at a time. "
+                "Please revise your query to reference a single organization for a precise and comprehensive report. 🏢"
+            )
+            st.session_state.multiple_companies_warned = True
+        
 
-    # Top download button
-    st.download_button(
-        label="📥 Download Analysis",
-        data=docx_file,
-        file_name=file_name,
-        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        key=f"{key_prefix}_download_top"
-    )
+    else:
+        file_name = f"{slugify(query)}.docx"
+        docx_file = generate_docx(query, response)
 
-    # Show response
-    st.write(response)
+        # Top download button
+        st.download_button(
+            label="📥 Download Analysis",
+            data=docx_file,
+            file_name=file_name,
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            key=f"{key_prefix}_download_top"
+        )
 
-    # Bottom download button
-    st.download_button(
-        label="📥 Download Analysis",
-        data=docx_file,
-        file_name=file_name,
-        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        key=f"{key_prefix}_download_bottom"
-    )
+        # Show response
+        st.write(response)
+
+        # Bottom download button
+        st.download_button(
+            label="📥 Download Analysis",
+            data=docx_file,
+            file_name=file_name,
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            key=f"{key_prefix}_download_bottom"
+        )
 
 # --- Streamlit Config ---
 st.set_page_config(
