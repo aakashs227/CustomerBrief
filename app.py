@@ -308,7 +308,7 @@ with st.sidebar:
         if st.session_state.get("selected_menu") == idx:
             bcols = st.columns(3)
             with bcols[0]:
-                if st.button("👁 View", key=f"view_{i}"):
+                if st.button(" View", key=f"view_{i}"):
                     st.session_state.last_query = q
                     st.session_state.selected_menu = None
                     st.rerun()
@@ -318,7 +318,7 @@ with st.sidebar:
                                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                                    key=f"download_{i}")
             with bcols[2]:
-                if st.button("🗑 Delete", key=f"delete_{i}"):
+                if st.button(" Delete", key=f"delete_{i}"):
                     st.session_state.chat_history.pop(idx)
                     st.session_state.selected_menu = None
                     st.rerun()
